@@ -1,5 +1,4 @@
-// import * as adminRepo from "../repositories/admin.repository";
-
+import { overlapCheck } from "../Class/overlap";
 import { getAll, saveRectangle } from "../Repository/rectangle.repository";
 
 //#region interfaces
@@ -26,12 +25,7 @@ interface input {
 export default class Controller {
   public async Set(body: input): Promise<any> {
     body.input.forEach((element) => {
-      if (
-        element.x == body.main.x ||
-        element.y == body.main.y ||
-        element.height == body.main.height ||
-        element.width == body.main.width
-      ) {
+      if (overlapCheck(body.main, element)) {
         saveRectangle(element);
       }
     });
